@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bewerbung - LöwenLegenden</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <h1 class="server-name">LöwenLegenden - Bewerbung</h1>
+            <p class="server-ip">IP: LoewenLegenden.aternos.me:30797</p>
+            
+            <!-- Navigation -->
+            <nav class="navigation">
+                <a href="index.html">Startseite</a> | 
+                <a href="bewerbung.html">Bewerbung</a> | 
+                <a href="changelog.html">Changelog</a> | 
+                <a href="team.html">Team</a> |
+                <a href="album.html">Album</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="fade">
+        <form id="bewerbungForm">
+            <button type="button" id="invite-button">Discord Server beitreten</button>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="discord-id">Discord User-ID:</label>
+            <input type="text" id="discord-id" name="discord-id" required>
+
+            <label for="role">Wähle deinen gewünschten Rang:</label>
+            <select id="role" name="role" required>
+                <option value="" disabled selected>Bitte einen Rang auswählen</option>
+                <option value="Builder">Builder</option>
+                <option value="Supporter">Supporter</option>
+                <option value="Moderator">Moderator</option>
+                <option value="Developer">Developer</option>
+                <option value="Administrator">Administrator</option>
+            </select>
+
+            <label for="description">Was zeichnet dich aus, bei uns mitzuwirken?</label>
+            <textarea id="description" name="description" rows="5" required></textarea>
+
+            <!-- Fragen -->
+            <label for="freebuild">Darf man in Freebuild griefen?</label>
+            <select id="freebuild" name="freebuild" required>
+                <option value="" disabled selected>Wähle eine Antwort</option>
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+                <option value="Unsicher">Ich bin mir nicht sicher</option>
+            </select>
+
+            <label for="fight">Kann man im Spielmodus BuildLand fighten?</label>
+            <select id="fight" name="fight" required>
+                <option value="" disabled selected>Wähle eine Antwort</option>
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+                <option value="Unsicher">Ich bin mir nicht sicher</option>
+            </select>
+
+            <label for="bugabusing">Ist Bugabusing erlaubt?</label>
+            <select id="bugabusing" name="bugabusing" required>
+                <option value="" disabled selected>Wähle eine Antwort</option>
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+                <option value="Unsicher">Ich bin mir nicht sicher</option>
+            </select>
+
+            <label for="notCommand">Welchen Command gibt es auf unserem Server nicht?</label>
+            <select id="notCommand" name="notCommand" required>
+                <option value="" disabled selected>Wähle eine Antwort</option>
+                <option value="/tpa">/tpa</option>
+                <option value="sellgui">sellgui</option>
+                <option value="rtp">rtp</option>
+            </select>
+
+            <label for="existsCommand">Welchen Command gibt es auf unserem Server?</label>
+            <select id="existsCommand" name="existsCommand" required>
+                <option value="" disabled selected>Wähle eine Antwort</option>
+                <option value="/lay">/lay</option>
+                <option value="tpr">tpr</option>
+                <option value="rtp">rtp</option>
+            </select>
+
+            <button type="submit">Absenden</button>
+        </form>
+
+        <!-- Erfolgsnachricht -->
+        <div id="successMessage" style="display: none; text-align: center;">
+            <h2>✅ Bewerbung erfolgreich eingereicht!</h2>
+            <p>Du wirst in Kürze auf die Startseite weitergeleitet.</p>
+        </div>
+
+        <!-- Fehlernachricht -->
+        <div id="errorMessage" style="display: none; text-align: center;">
+            <h2>❌ Fehler beim Senden der Bewerbung.</h2>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LöwenLegenden. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('bewerbungForm');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const inviteButton = document.getElementById('invite-button');
+
+        inviteButton.addEventListener('click', function() {
+            window.open('https://discord.gg/mQGBfu2rDr', '_blank');
+        });
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Verhindert die Standard-Formular-Übermittlung
+
+            const data = {
+                name: document.getElementById('name').value,
+                discordId: document.getElementById('discord-id').value,
+                role: document.getElementById('role').value,
+                description: document.getElementById('description').value,
+                freebuild: document.getElementById('freebuild').value,
+                fight: document.getElementById('fight').value,
+                bugabusing: document.getElementById('bugabusing').value,
+                notCommand: document.getElementById('notCommand').value,
+                existsCommand: document.getElementById('existsCommand').value
+            };
+
+            // Discord Webhook URL hier einfügen
+            const webhookURL = 'https://discord.com/api/webhooks/1286820973076811786/pdzoVTzV5ZrEj8qHDL_MozSTP-xsO3kTuLxr8cznXsxTd629av1uNMCOgSk7F6HnsHvZ';
+
+            // Nachricht im Discord-kompatiblen Format
+            const message = {
+                embeds: [{
+                    title: "Neue Bewerbung eingegangen!",
+                    color: 0x00ff00, // Grün
+                    fields: [
+                        { name: "Name", value: data.name, inline: true },
+                        { name: "Discord User-ID", value: `<@${data.discordId}>`, inline: true },
+                        { name: "Gewünschter Rang", value: data.role, inline: true },
+                        { name: "Beschreibung", value: data.description, inline: false },
+                        { name: "Freebuild Griefen", value: data.freebuild, inline: true },
+                        { name: "BuildLand Fighten", value: data.fight, inline: true },
+                        { name: "Bugabusing", value: data.bugabusing, inline: true },
+                        { name: "Nicht verfügbarer Command", value: data.notCommand, inline: true },
+                        { name: "Verfügbarer Command", value: data.existsCommand, inline: true },
+                    ],
+                    footer: {
+                        text: "Bewerbungssystem - LöwenLegenden",
+                    },
+                }]
+            };
+
+            // Senden der Bewerbung an den Discord Webhook
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message),
+            })
+            .then(response => {
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    form.style.display = 'none'; // Formular ausblenden
+
+                    // Nach 5 Sekunden zur Startseite umleiten
+                    setTimeout(() => {
+                        window.location.href = 'index.html'; // Weiterleitung zur Startseite
+                    }, 5000);
+                } else {
+                    throw new Error('Fehler beim Senden der Bewerbung');
+                }
+            })
+            .catch(error => {
+                errorMessage.style.display = 'block';
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainSection = document.querySelector('main');
+
+            function fadeIn() {
+                mainSection.classList.add('in');
+            }
+
+            function fadeOut() {
+                mainSection.classList.remove('in');
+            }
+
+            // Initiale Animation
+            fadeIn();
+        });
+    </script>
+</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainSection = document.querySelector('main');
+
+            function fadeIn() {
+                mainSection.classList.add('in');
+            }
+
+            function fadeOut() {
+                mainSection.classList.remove('in');
+            }
+
+            // Initiale Animation
+            fadeIn();
+
+            // Wenn ein Link geklickt wird, führe die Fade-Out-Animation aus
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Verhindert den Standard-Link-Klick
+
+                    fadeOut();
+
+                    // Warte auf das Ende der Fade-Out-Animation
+                    setTimeout(() => {
+                        window.location.href = this.href; // Wechselt die Seite
+                    }, 500); // Die Zeit sollte mit der CSS-Transition übereinstimmen
+                });
+            });
+        });
+    </script>
+</html>

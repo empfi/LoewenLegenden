@@ -1,0 +1,375 @@
+/* Grundlegendes Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
+h1, h2, h3 {
+    color: #00aaff;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #00aaff;
+}
+
+p {
+    color: #cccccc;
+}
+
+/* Loading Screen Styles */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1e1e1e;
+    color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 1s ease-out;
+}
+
+.loader {
+    border: 16px solid rgba(255, 255, 255, 0.2);
+    border-top: 16px solid #00aaff;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 1.5s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Facts Container */
+.facts-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fact-box {
+    background: #00aaff;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    animation: fadeInOut 3s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+/* Header Styles */
+header {
+    background: url('minecraft-banner.jpg') no-repeat center center/cover;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.header-container {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.server-name {
+    font-size: 3rem;
+}
+
+.server-ip {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    color: #ffbb33;
+}
+
+/* CTA Button Styles */
+.cta-button {
+    background-color: #00aaff;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    color: white;
+    transition: 0.3s;
+    margin-top: 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.cta-button:hover {
+    background-color: #007bff;
+    transform: scale(1.05);
+}
+
+/* Main Content */
+main {
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Image Gallery Styles */
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.image-gallery img {
+    width: 30%;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Features */
+.features-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.feature-card {
+    background: #00aaff;
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    width: 30%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Call to Action */
+.join {
+    background-color: #007bff;
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.join p {
+    color: #ffffff;
+}
+
+.join .cta-button {
+    background-color: white;
+    color: #007bff;
+    border: 2px solid #007bff;
+}
+
+.join .cta-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Footer */
+footer {
+    background-color: #007bff;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Team Section Styles */
+.navigation {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.team {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.team-member {
+    display: inline-block;
+    margin: 1rem;
+    text-align: center;
+}
+
+.team-member img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.social-media {
+    margin-top: 0.5rem;
+}
+
+.social-media img {
+    width: 24px;
+    margin: 0 5px;
+}
+
+/* Changelog Styles */
+.changelog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.changelog-entry {
+    margin-bottom: 20px;
+}
+
+.changelog-entry ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Bewerbungsformular */
+form {
+    background-color: #2a2a2a;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    margin: 2rem auto;
+    color: #f1f1f1;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #00aaff;
+}
+
+form input[type="text"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: border 0.3s ease-in-out;
+}
+
+form input[type="text"]:focus,
+form select:focus,
+form textarea:focus {
+    outline: none;
+    border: 2px solid #00aaff;
+}
+
+form button {
+    background-color: #00aaff;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+    width: 100%;
+}
+
+form button:hover {
+    background-color: #007bff;
+    transform: scale(1.05);
+}
+
+form button:active {
+    transform: scale(0.98);
+}
+
+/* Erfolgsmeldung und Fehlermeldung */
+#successMessage, #errorMessage {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    font-size: 1.2rem;
+    color: #f1f1f1;
+}
+
+#successMessage {
+    background-color: #28a745;
+}
+
+#errorMessage {
+    background-color: #dc3545;
+}
+
+/* Select und Textarea Styling */
+select {
+    appearance: none;
+    background: url('data:image/svg+xml;base64,...') no-repeat right 0.8rem center;
+    background-color: #1e1e1e;
+    background-size: 10px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px auto; /* Optional: Abstand oben und unten */
+}
+
+.skin-container {
+    margin-right: 20px; /* Abstand zwischen Skin und Text */
+    text-align: center;
+}
+
+#minecraft-skin {
+    width: 150px; /* Größe des Skins anpassen */
+    height: auto;
+}
+
+.history-container {
+    max-width: 600px; /* Maximale Breite des Textes */
+    text-align: left; /* Text links ausrichten */
+}
+

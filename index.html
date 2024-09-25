@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>LöwenLegenden</title>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" href="favicon.png">
+    </head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <div class="facts-container">
+            <div class="fact-box" id="fact-box"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <h1 class="server-name">LöwenLegenden</h1>
+            <p class="server-ip">IP: LoewenLegenden.aternos.me</p>
+            
+            <!-- Navigation -->
+            <nav class="navigation">
+                <a href="index.html">Startseite</a> | 
+                <a href="bewerbung.html">Bewerbung</a> | 
+                <a href="changelog.html">Changelog</a> | 
+                <a href="team.html">Team</a> |
+                <a href="album.html">Album</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="fade">
+        <section class="about" id="about">
+            <h2>Willkommen auf unserem Minecraft Server!</h2>
+            <p>Erkunde die Welt, baue, kämpfe und erlebe spannende Abenteuer mit Freunden. Trete jetzt bei!</p>
+            <div class="image-gallery">
+                <img src="bild1.jpg" alt="Minecraft Welt">
+                <img src="bild2.jpg" alt="Minecraft Gebäude">
+                <img src="bild3.jpg" alt="Minecraft Abenteuer">
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <h2>Unsere Features</h2>
+            <div class="features-container">
+                <div class="feature-card">
+                    <p>Erlebe spannende Bedwars-Gefechte, in denen du dich in strategischen Kämpfen beweisen musst. Überlebe und gewinne, indem du deine Betten schützt und die Gegner ausschaltest.</p>
+                </div>
+                <div class="feature-card">
+                    <p>Nutze das Landclaim-System, um dein Bauwerk zu sichern. Schütze dein Grundstück vor anderen Spielern und genieße eine sorgenfreie Bauzeit ohne das Risiko von Griefing.</p>
+                </div>
+                <div class="feature-card">
+                    <p>Entfalte deine Kreativität im Freebuild-Modus. Baue nach Herzenslust in einer freien Welt, ohne Beschränkungen, und erlebe spannende Abenteuer mit der Community.</p>
+                </div>
+            </div>
+            <br>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="join">
+            <h2>Jetzt mitmachen!</h2>
+            <p>Unser Server wurde mit ❤️ erstellt. Komm und werde Teil unserer Community. Erstellt von <a href="empfi.html">empfi</a>!</p>
+            <a href="https://discord.gg/mQGBfu2rDr" class="cta-button" target="_blank">Tritt unserem Server bei</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 LoewenLegenden.aternos.me. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        // Liste der Minecraft-Fakten
+        const facts = [
+            "Minecraft wurde erstmals am 17. Mai 2009 veröffentlicht.",
+            "Es gibt über 60 verschiedene Biome in Minecraft.",
+            "Der längste aufgezeichnete Minecraft-Marathon dauert über 35 Stunden.",
+            "In Minecraft gibt es mehr als 400 verschiedene Arten von Blöcken.",
+            "Es gibt einen geheimen End-Block, der nur durch bestimmte Bedingungen freigeschaltet werden kann."
+        ];
+
+        const factBox = document.getElementById('fact-box');
+        let factIndex = 0;
+
+        function updateFact() {
+            factBox.textContent = facts[factIndex];
+            factIndex = (factIndex + 1) % facts.length;
+        }
+
+        setInterval(updateFact, 3000); // Alle 3 Sekunden ein neuer Fakt
+
+        // Verstecke den Ladebildschirm nach dem Laden
+        window.onload = function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.transition = 'opacity 1s ease-out';
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 1000); // Übergangszeit für den Fade-Out-Effekt
+        };
+    </script>
+</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainSection = document.querySelector('main');
+
+            function fadeIn() {
+                mainSection.classList.add('in');
+            }
+
+            function fadeOut() {
+                mainSection.classList.remove('in');
+            }
+
+            // Initiale Animation
+            fadeIn();
+
+            // Wenn ein Link geklickt wird, führe die Fade-Out-Animation aus
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Verhindert den Standard-Link-Klick
+
+                    fadeOut();
+
+                    // Warte auf das Ende der Fade-Out-Animation
+                    setTimeout(() => {
+                        window.location.href = this.href; // Wechselt die Seite
+                    }, 500); // Die Zeit sollte mit der CSS-Transition übereinstimmen
+                });
+            });
+        });
+    </script>
+</html>

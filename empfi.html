@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LöwenLegenden</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <h1 class="server-name">LöwenLegenden</h1>
+            <p class="server-ip">IP: LoewenLegenden.aternos.me:30797</p>
+
+            <!-- Navigation -->
+            <nav class="navigation">
+                <a href="index.html">Startseite</a> |
+                <a href="bewerbung.html">Bewerbung</a> |
+                <a href="changelog.html">Changelog</a> |
+                <a href="team.html">Team</a> |
+                <a href="album.html">Album</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Skin-Anzeige und Entwickler-Geschichte -->
+    <div class="content-container">
+        <div class="skin-container">
+            <h3>Spieler-Skin von empfi</h3>
+            <img src="https://mc-heads.net/body/empfi" alt="Minecraft Skin von empfi" id="minecraft-skin">
+        </div>
+
+        <div class="history-container">
+            <h2>Über mich</h2>
+            <p>Ich bin der Entwickler des LöwenLegenden-Servers und der dazugehörigen Website. 
+            Mit einer Leidenschaft für Minecraft und einer Vision für eine einzigartige Spielerfahrung, 
+            habe ich diesen Server ins Leben gerufen. Hier können Spieler in einer aufregenden und 
+            unterstützenden Community zusammenkommen, Abenteuer erleben und ihre Kreativität entfalten. 
+            Mein Ziel ist es, eine Plattform zu schaffen, auf der jeder sich wohlfühlen und Spaß haben kann. 
+            Ich freue mich darauf, euch alle im Spiel zu sehen!</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 LoewenLegenden.aternos.me. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainSection = document.querySelector('main');
+
+            function fadeIn() {
+                mainSection.classList.add('in');
+            }
+
+            function fadeOut() {
+                mainSection.classList.remove('in');
+            }
+
+            // Initiale Animation
+            fadeIn();
+
+            // Wenn ein Link geklickt wird, führe die Fade-Out-Animation aus
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Verhindert den Standard-Link-Klick
+
+                    fadeOut();
+
+                    // Warte auf das Ende der Fade-Out-Animation
+                    setTimeout(() => {
+                        window.location.href = this.href; // Wechselt die Seite
+                    }, 500); // Die Zeit sollte mit der CSS-Transition übereinstimmen
+                });
+            });
+        });
+    </script>
+</body>
+</html>
