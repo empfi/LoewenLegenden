@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LöwenLegenden - Dein Album</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        /* Zusätzliche Stile für die Galerie und den Upload-Bereich */
+        .upload-form {
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .file-input {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .file-input input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input button {
+            background-color: #00aaff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        #uploadButton {
+            background-color: #00aaff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #fileList {
+            display: none;
+            margin-top: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            padding: 10px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s ease-in-out;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item.show {
+            opacity: 1;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .delete-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .delete-icon img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover .delete-icon {
+            opacity: 1;
+        }
+
+        /* Modal für großes Bild */
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #modalImg {
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            display: block;
+        }
+
+        .cta-button {
+            margin-top: 20px;
+        }
+
+        .info-text {
+            text-align: center;
+            margin: 20px;
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <h1 class="server-name">LöwenLegenden - Dein Album</h1>
+            <p class="server-ip">IP: LoewenLegenden.aternos.me:30797</p>
+
+            <!-- Navigation -->
+            <nav class="navigation">
+                <a href="index.html">Startseite</a> |
+                <a href="bewerbung.html">Bewerbung</a> |
+                <a href="changelog.html">Changelog</a> |
+                <a href="team.html">Team</a> |
+                <a href="album.html">Album</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="fade">
+        <!-- Infotext -->
+        <div class="info-text">
+            <p>Willkommen in deiner Galerie! Hier kannst du Bilder hochladen, die nur für dich sichtbar sind. Beachte, dass deine Bilder verschwinden können, wenn du deinen Browsercache leerst!</p>
+            <p>Klicke auf "Wähle Dateien", um Bilder auszuwählen, und drücke "Hochladen", um sie hinzuzufügen.</p>
+        </div>
+
+        <!-- Upload-Formular -->
+        <section class="upload-section">
+            <div class="upload-form">
+                <form id="uploadForm">
+                    <div class="file-input">
+                        <button>Wähle Dateien</button>
+                        <input type="file" id="fileInput" accept=".jpg, .jpeg, .png" multiple required />
+                    </div>
+                    <button id="uploadButton" type="submit">Hochladen</button>
+                </form>
+                <div id="fileList">
+                    <h3>Dateien:</h3>
+                    <ul id="fileNames"></ul>
+                </div>
+            </div>
+
+            <div class="gallery" id="gallery"></div>
+
+            <!-- Modal für großes Bild -->
+            <div id="imageModal" class="modal">
+                <img id="modalImg" src="" alt="Großes Bild">
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 LoewenLegenden.aternos.me. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        // Vorschau der ausgewählten Bilder anzeigen und Button aktivieren
+        document.getElementById('fileInput').addEventListener('change', function (event) {
+            const fileInput = event.target;
+            const files = fileInput.files;
+
+            const fileList = document.getElementById('fileList');
+            const fileNames = document.getElementById('fileNames');
+            fileNames.innerHTML = ''; // Vorherige Vorschau leeren
+            fileList.style.display = 'block'; // Datei-Liste anzeigen
+
+            const uploadButton = document.getElementById('uploadButton');
+            if (files.length > 0) {
+                uploadButton.style.display = 'block'; // Upload-Button anzeigen
+            } else {
+                uploadButton.style.display = 'none'; // Upload-Button verstecken
+            }
+
+            Array.from(files).forEach(file => {
+                if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        // Vorschau des Bildes erstellen
+                        const listItem = document.createElement('li');
+                        const fileName = file.name.length > 15 ? file.name.substring(0, 15) + '...' : file.name; // Dateinamen kürzen
+                        listItem.textContent = fileName; // Dateinamen anzeigen
+
+                        // Bildvorschau hinzufügen
+                        const previewImg = document.createElement('img');
+                        previewImg.src = e.target.result;
+                        previewImg.style.width = '50px';
+                        previewImg.style.height = '50px';
+                        previewImg.style.marginRight = '10px';
+
+                        listItem.prepend(previewImg);
+                        fileNames.appendChild(listItem);
+                    };
+
+                    reader.readAsDataURL(file); // Bild als Data URL laden
+                }
+            });
+        });
+
+        // Bild hochladen und in die Galerie aufnehmen
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const fileInput = document.getElementById('fileInput');
+            const files = fileInput.files;
+
+            Array.from(files).forEach(file => {
+                if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        const images = JSON.parse(localStorage.getItem('images') || '[]');
+                        images.push(e.target.result); // Bild als Base64 speichern
+                        localStorage.setItem('images', JSON.stringify(images));
+                        loadImages(); // Galerie aktualisieren
+                    };
+
+                    reader.readAsDataURL(file); // Bild als Data URL laden
+                }
+            });
+
+            fileInput.value = ''; // Dateieingabe zurücksetzen
+            document.getElementById('fileList').style.display = 'none'; // Datei-Liste ausblenden
+            document.getElementById('uploadButton').style.display = 'none'; // Upload-Button ausblenden
+        });
+
+        // Galerie laden
+        function loadImages() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = ''; // Leere die Galerie
+
+            const images = JSON.parse(localStorage.getItem('images') || '[]');
+            images.forEach((src, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+
+                const img = document.createElement('img');
+                img.src = src;
+
+                const deleteIcon = document.createElement('div');
+                deleteIcon.classList.add('delete-icon');
+                const deleteImg = document.createElement('img');
+                deleteImg.src = 'https://img.icons8.com/ios-filled/50/ffffff/delete.png'; // Symbol für Löschen
+
+                deleteIcon.appendChild(deleteImg);
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(deleteIcon);
+                gallery.appendChild(galleryItem);
+
+                // Bild-Anzeige
+                galleryItem.classList.add('show');
+
+                // Modal für großes Bild öffnen
+                img.addEventListener('click', () => {
+                    const modal = document.getElementById('imageModal');
+                    const modalImg = document.getElementById('modalImg');
+                    modal.style.display = 'flex';
+                    modalImg.src = src;
+                });
+
+                // Bild löschen
+                deleteIcon.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    images.splice(index, 1);
+                    localStorage.setItem('images', JSON.stringify(images));
+                    loadImages();
+                });
+            });
+        }
+
+        // Modal für großes Bild schließen
+        document.getElementById('imageModal').addEventListener('click', function () {
+            this.style.display = 'none';
+        });
+
+        // Lade die Bilder beim Laden der Seite
+        window.addEventListener('load', () => {
+            loadImages();
+        });
+    </script>
+</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainSection = document.querySelector('main');
+
+            function fadeIn() {
+                mainSection.classList.add('in');
+            }
+
+            function fadeOut() {
+                mainSection.classList.remove('in');
+            }
+
+            // Initiale Animation
+            fadeIn();
+
+            // Wenn ein Link geklickt wird, führe die Fade-Out-Animation aus
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Verhindert den Standard-Link-Klick
+
+                    fadeOut();
+
+                    // Warte auf das Ende der Fade-Out-Animation
+                    setTimeout(() => {
+                        window.location.href = this.href; // Wechselt die Seite
+                    }, 500); // Die Zeit sollte mit der CSS-Transition übereinstimmen
+                });
+            });
+        });
+    </script>
+</html>
