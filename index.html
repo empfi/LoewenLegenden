@@ -13,13 +13,6 @@
     </head>
 
 <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loader"></div>
-        <div class="facts-container">
-            <div class="fact-box" id="fact-box"></div>
-        </div>
-    </div>
 
     <!-- Header -->
     <header>
@@ -30,7 +23,6 @@
             <!-- Navigation -->
             <nav class="navigation">
                 <a href="index.html">Startseite</a> | 
-                <a href="bewerbung.html">Bewerbung</a> | 
                 <a href="changelog.html">Changelog</a> | 
                 <a href="team.html">Team</a> |
                 <a href="album.html">Album</a>
@@ -81,34 +73,6 @@
     </footer>
 
     <script>
-        // Liste der Minecraft-Fakten
-        const facts = [
-            "Minecraft wurde erstmals am 17. Mai 2009 veröffentlicht.",
-            "Es gibt über 60 verschiedene Biome in Minecraft.",
-            "Der längste aufgezeichnete Minecraft-Marathon dauert über 35 Stunden.",
-            "In Minecraft gibt es mehr als 400 verschiedene Arten von Blöcken.",
-            "Es gibt einen geheimen End-Block, der nur durch bestimmte Bedingungen freigeschaltet werden kann."
-        ];
-
-        const factBox = document.getElementById('fact-box');
-        let factIndex = 0;
-
-        function updateFact() {
-            factBox.textContent = facts[factIndex];
-            factIndex = (factIndex + 1) % facts.length;
-        }
-
-        setInterval(updateFact, 3000); // Alle 3 Sekunden ein neuer Fakt
-
-        // Verstecke den Ladebildschirm nach dem Laden
-        window.onload = function() {
-            const loadingScreen = document.getElementById('loading-screen');
-            loadingScreen.style.transition = 'opacity 1s ease-out';
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 1000); // Übergangszeit für den Fade-Out-Effekt
-        };
     </script>
 </body>
     <script>
